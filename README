@@ -1,0 +1,57 @@
+This is no-ip.com service update client package version 0.1 (first)
+Package consists of:
+README                         this file
+noip-upd.c                     no-ip update client source code
+noip-upd.bin                   client binary
+noip-upd.conf                  client config file
+noip-upd-conf.sh               client configurator
+noip-upd.sh                    client sequental runer (runs client binary sequentaly)
+noip-upd.inc                   variables for 'noip-upd.sh'
+
+This client uses 'no-ip.com' API to update ip address.
+
+To configure client run:
+    noip-upd-conf.sh <config-file-name>
+<config-file-name> is file name of config file for noip-upd.bin file.
+
+BTW one can edit client config file manualy.
+ But config file strings are to be in strict order.
+ The order is -
+ line number - what should typed in to this line
+ 0           - Base64-encoded login:password string
+ 1           - hostname to update
+ 2           - update server (typicaly dynupdate.no-ip.com)
+ No keywords are to be in noip-upd.conf file
+
+noip-upd.inc file has variables for noip-upd.sh file.
+    Variables needed for noip-upd.sh script:
+    Variable name - its meaning
+    ALLOW_UPD_F   - file with allowing or disallowing of ip update process
+    ALLOW_WORD    - word which allows ip update process when is typed
+                    in to ALLOW_UPD_F file
+    DISALLOW_WORD - word which disallows ip update process when is typed
+                    in to ALLOW_UPD_F file
+    TIMEh         - hours update period part
+    TIMEm         - minutes update period part
+                    update period = TIMEh*60+TIMEm (minutes)
+    NOIP_UPD      - path (with file name) to noip-upd.bin
+    NOIP_UPD_CONF - path (with filename) to noip-upd.conf
+    NO_EXEC       - String which is to be written to ALLOW_UPD_F file
+                if no NOIP_UPD is found and if it is not executable
+
+To launch update process 'noip-upd.sh' should be started but with it's
+full path, i.e:
+    /usr/local/bin/noip-upd.sh
+
+Maybe it this file is not full to be full documentation for noip-upd client.
+If so do not hesitate to email me to ksergy.91 <at> gmail.com
+
+You can dynamicaly edit its configuration file (i.e. once you run noip-upd.sh you are still able to edit configuration files - noip-upd.conf and noip-upd.inc).
+
+To compile run
+    gcc ./noip-upd.c -o ./noip-upd.bin
+
+To 'install' - just copy noip-upd.bin, noip-upd.conf, noip-upd.inc, noip-upd.sh to whereever you want and set configuration variables.
+
+Author of this README and noip-upd*.* files -
+    - Sergy Kanaev (ksergy.91@gmail.com)
